@@ -1,68 +1,56 @@
-# Hybrid-Transparency-core
+# Hybrid-Transparency: V4 Architecture
 
-This repository contains:
-- `circuits/`: Noir circuit for credential validity + Merkle membership + nullifier checks
-- `contracts/`: Solidity contracts for proof verification and Merkle root anchoring
-- `web-admin/`, `web-citizen/`: app layers (still under construction)
+Diagram of the system: [View on Eraser.io](https://app.eraser.io/workspace/YftjwOIfE3uFNa5aTSfs?origin=share)
 
-## 1) Circuit setup (`circuits/`)
+Wait for further update on setup instructions, thank you.
 
-### Files added
-- `Nargo.toml` (Noir package + Poseidon dependency)
-- `Prover.toml` (CLI proving input)
-- `prover-input.example.json` (app-side JSON format)
+## Repository Structure
 
-### Build / execute witness
-```bash
-cd circuits
-nargo check
-nargo execute witness
+```text
+hybrid-transparency/
+│
+├── circuits/                     <-- KINGDOM 1: The Cryptography (Noir)
+│   ├── src/
+│   │   └── main.nr               <-- (The Flat Hash Circuit)
+│   ├── Prover.toml               <-- (Local test inputs only)
+│   ├── Nargo.toml                <-- (Noir dependencies, tag = "v0.1.1")
+│   └── target/
+│       └── hybrid_transparency.json <-- THE ARTIFACT (The unbreakable contract)
+│
+├── contracts/                    <-- KINGDOM 2: The Anchor (Blockchain)
+│   ├── contracts/
+│   │   └── LTORegistry.sol       <-- The Smart Contract (Stores only the Merkle Tree)
+│   ├── scripts/
+│   │   └── deploy.ts             <-- (Deploys LTORegistry to Localhost)
+│   ├── hardhat.config.ts
+│   └── package.json
+│
+├── web-citizen/                  <-- KINGDOM 3: The Driver (Prover)
+│   ├── app/
+│   │   ├── wallet/               <-- (UI: Stores Driver's JSON in localStorage)
+│   │   │   └── page.tsx
+│   │   └── prove/                <-- (UI: Generates the WASM Proof to show Enforcer)
+│   │       └── page.tsx
+│   ├── utils/
+│   │   ├── mock_citizens.json    <-- NEW: Array of 100 dummy drivers for thesis benchmarking
+│   │   ├── zk-prove.ts           <-- WASM ENGINE: Uses @noir-lang/backend_barretenberg
+│   │   ├── flat-hash.ts          <-- HASH ENGINE: Uses @aztec/bb.js (poseidon2Hash)
+│   │   └── chain.ts              <-- (Fetches current Merkle Root & Path from LTORegistry)
+│   └── package.json
+│
+├── web-admin/                    <-- KINGDOM 4: The Authority (Verifier & Issuer)
+│   ├── app/
+│   │   ├── issuer/               <-- (UI: LTO Admin Portal to add new drivers)
+│   │   │   └── page.tsx
+│   │   └── enforcer/             <-- (UI: Traffic Cop App to scan Citizen's Proof)
+│   │       └── page.tsx
+│   ├── utils/
+│   │   ├── db.json               <-- NEW: Admin's Web2 DB (Stores heavy data: Photos, Names)
+│   │   ├── zk-verify.ts          <-- WASM ENGINE: Uses @noir-lang/backend_barretenberg
+│   │   ├── flat-hash.ts          <-- HASH ENGINE: Uses @aztec/bb.js (poseidon2Hash)
+│   │   └── chain.ts              <-- (Connects to LTORegistry to confirm the Root is legit)
+│   └── package.json
+│
+├── .gitignore
+└── README.md
 ```
-
-## 2) Prover input format
-
-The circuit expects:
-- Public: `root`, `nullifierHash`, `scope`
-- Private: `secret`, `salt`, `age`, `medical_grade`, `pdc_completion`, `driving_hours`, `pathIndices[20]`, `pathElements[20]`
-
-Use either:
-- `Prover.toml` for `nargo execute` / CLI workflows
-- `prover-input.example.json` for JS/TS SDK-based witness generation
-
-All scalar values should be passed as decimal strings (field-compatible values).
-
-## 3) Merkle smart contract (`contracts/`)
-
-### New contract
-- `contracts/MerkleRegistry.sol`
-  - stores current root
-  - stores root history (`isKnownRoot`)
-  - owner-only root updates
-  - emits `RootUpdated`
-
-### Hardhat setup added
-- `package.json`
-- `hardhat.config.ts`
-- `scripts/deploy.ts`
-- `.env.example`
-- `tsconfig.json`
-
-### Deploy locally
-```bash
-cd contracts
-npm install
-cp .env.example .env
-npm run build
-npm run deploy:localhost
-```
-
-Set `INITIAL_ROOT` in `.env` to your off-chain Merkle root (`bytes32`, non-zero).
-
-If you also want to deploy `HonkVerifier`, set:
-```bash
-DEPLOY_VERIFIER=true
-```
-
-## Notes
-- `Verifier.sol` is preserved as-is.
-- `Lock.sol` is currently unused and can be removed later.
