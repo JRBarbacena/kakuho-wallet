@@ -1,57 +1,51 @@
 # Hybrid-Transparency-core│
 ```
-├── circuits/                     <-- KINGDOM 1: The Truth (Member 1)
+hybrid-transparency/
+│
+├── circuits/                     <-- KINGDOM 1: The Cryptography (Noir)
 │   ├── src/
-│   │   └── main.nr               <-- (Standard entry point)
-│   ├── Prover.toml               <-- (Test inputs)
-│   └── Nargo.toml                <-- (Config)
+│   │   └── main.nr               <-- (The Flat Hash Circuit)
+│   ├── Prover.toml               <-- (Local test inputs only)
+│   ├── Nargo.toml                <-- (Noir dependencies, tag = "v0.1.1")
+│   └── target/
+│       └── hybrid_transparency.json <-- THE ARTIFACT (The unbreakable contract)
 │
-├── contracts/                    <-- KINGDOM 2: The Trap (Member 2)
+├── contracts/                    <-- KINGDOM 2: The Anchor (Blockchain)
 │   ├── contracts/
-│   │   ├── Verifier.sol          <-- (The "Public" Anchor Contract)
-│   │   └── Lock.sol              <-- (Delete this later)
+│   │   └── LTORegistry.sol       <-- The Smart Contract (Stores only the Merkle Tree)
 │   ├── scripts/
-│   │   └── deploy.ts             <-- (Deploys Verifier to Localhost)
-│   ├── hardhat.config.ts         <-- (Configured for Localhost network)
+│   │   └── deploy.ts             <-- (Deploys LTORegistry to Localhost)
+│   ├── hardhat.config.ts         
 │   └── package.json
 │
-├── web-citizen/                  <-- KINGDOM 3: The Public (Member 3)
+├── web-citizen/                  <-- KINGDOM 3: The Driver (Prover)
 │   ├── app/
-│   │   ├── wallet/               <-- (Stores User Secret in LocalStorage)
+│   │   ├── wallet/               <-- (UI: Stores Driver's JSON in localStorage)
 │   │   │   └── page.tsx
-│   │   └── verify/               <-- (Queries Verifier.sol on Localhost)
+│   │   └── prove/                <-- (UI: Generates the WASM Proof to show Enforcer)
 │   │       └── page.tsx
-│   ├── components/
-│   │   └── Credentials.json      <-- (Mock Identity for testing)
 │   ├── utils/
-│   │   ├── zk-proof.ts           <-- (Generates Proofs using Circuit, calls Edwards conversion)
-│   │   ├── merkle.ts             <-- (fetch inclusion proof for user’s credential)
-│   │   ├── chain.ts              <-- (Read-only contract queries: Merkle root, events)
-│   │   ├── status.ts             <-- (Check if credential hash is revoked or anchored)
-│   │   └── crypto.ts             <-- (ECDSA → Edwards conversion utility, imported by wallet/proof)
+│   │   ├── mock_citizens.json    <-- NEW: Array of 100 dummy drivers for thesis benchmarking
+│   │   ├── zk-prove.ts           <-- WASM ENGINE: Uses @noir-lang/backend_barretenberg
+│   │   ├── flat-hash.ts          <-- HASH ENGINE: Uses @aztec/bb.js (poseidon2Hash)
+│   │   └── chain.ts              <-- (Fetches current Merkle Root & Path from LTORegistry)
 │   └── package.json
 │
-├── web-admin/                    <-- KINGDOM 4: The Government (Member 4)
+├── web-admin/                    <-- KINGDOM 4: The Authority (Verifier & Issuer)
 │   ├── app/
-│   │   ├── issuer/               <-- (The "Portal" UI)
+│   │   ├── issuer/               <-- (UI: LTO Admin Portal to add new drivers)
 │   │   │   └── page.tsx
-│   │   └── api/                  <-- NEW: API Route to handle DB writes
-│   │       ├──  register/       <-- (Writes to DB)
-│   │       │  └── route.ts 
-│   │       └── get-path/       <-- NEW: User calls this to get their "Inclusion Proof"
-│   │             └── route.ts
+│   │   └── enforcer/             <-- (UI: Traffic Cop App to scan Citizen's Proof)
+│   │       └── page.tsx
 │   ├── utils/
-│   │   ├── db.json               <-- NEW: The "Private Chain" Database
-│   │   ├── anchor.ts          <-- NEW: The Script to "Sync" Root to Contract
-│   │   ├── chain.ts		<-- Connect to Contract (Read Events / Write Revocations)
-│   │   ├── merkle.ts  		<-- Admin needs to see the Tree Root
-│   │   ├── revoke.ts   	<-- Admin's main weapon (Ban hammer      
-│   │   └── crypto.ts             <-- (ECDSA → Edwards conversion utility, imported by wallet)  
+│   │   ├── db.json               <-- NEW: Admin's Web2 DB (Stores heavy data: Photos, Names)
+│   │   ├── zk-verify.ts          <-- WASM ENGINE: Uses @noir-lang/backend_barretenberg
+│   │   ├── flat-hash.ts          <-- HASH ENGINE: Uses @aztec/bb.js (poseidon2Hash)
+│   │   └── chain.ts              <-- (Connects to LTORegistry to confirm the Root is legit)
 │   └── package.json
 │
-├── .gitignore                    <-- Critical (.env, node_modules)
+├── .gitignore
 └── README.md
-
 Diagram of the system: https://app.eraser.io/workspace/YftjwOIfE3uFNa5aTSfs?origin=share 
 
 Wait for futher update on setup instructions, thank you.
