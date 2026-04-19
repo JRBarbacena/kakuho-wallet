@@ -1,0 +1,15 @@
+# PRIVATE INPUTS
+secret = "123456789"
+private_license_data = "987654321"
+leaf_index = 0
+merkle_path = [
+    "0", "0", "0", "0", "0", 
+    "0", "0", "0", "0", "0", 
+    "0", "0", "0", "0", "0", 
+    "0", "0", "0", "0", "0"
+]
+
+# PUBLIC INPUTS
+public_name = "111111"
+scope = "222222"
+public_merkle_root = "333333"

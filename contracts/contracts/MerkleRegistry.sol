@@ -1,11 +1,14 @@
 pragma solidity ^0.8.20;
 
-// 1. You just import the pre-built LeanIMT from ZK-Kit
+// 1. Import the LeanIMT library from ZK-Kit
 import "@zk-kit/imt.sol/LeanIMT.sol";
 
-contract LTORegistry {
-    using LeanIMTData for LeanIMTData.Tree;
-    LeanIMTData.Tree internal tree;
+contract MerkleRegistry {
+    // 2. THE FIX: Apply the LeanIMT library math to the LeanIMTData struct
+    using LeanIMT for LeanIMTData; 
+    
+    // 3. Declare the tree using the proper struct name
+    LeanIMTData internal tree;
     
     address public admin;
 
@@ -17,7 +20,6 @@ contract LTORegistry {
     constructor() {
         admin = msg.sender;
     }
-
     // 2. ADMIN ADDS A DRIVER (Issuance)
     function issueLicense(uint256 leafCommitment) public onlyAdmin {
         tree.insert(leafCommitment); // The ZK-Kit library handles all the math instantly
