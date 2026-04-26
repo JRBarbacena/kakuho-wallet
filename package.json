@@ -1,8 +1,15 @@
 {
-  "dependencies": {
-    "@zk-kit/imt.sol": "^2.0.0-beta.12"
-  },
-  "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^6.1.2"
+  "name": "hybrid-transparency-monorepo",
+  "private": true,
+  "workspaces": [
+    "web-admin",
+    "web-citizen",
+    "contracts"
+  ],
+  "scripts": {
+    "build:admin": "npm run build --workspace=web-admin",
+    "build:citizen": "npm run build --workspace=web-citizen",
+    "dev:admin": "npm run dev --workspace=web-admin",
+    "dev:citizen": "npm run dev --workspace=web-citizen"
   }
 }
