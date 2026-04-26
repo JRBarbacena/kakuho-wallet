@@ -1,21 +1,25 @@
 import { NextResponse } from 'next/server';
-import { getSupabase } from '@/lib/supabase';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET(req: Request) {
     try {
-        const supabase = getSupabase();
-        if (!supabase) {
-            return NextResponse.json({ success: false, error: "Database not initialized" }, { status: 503 });
-        }
-
         const { searchParams } = new URL(req.url);
         const hash = searchParams.get('hash');
 
         if (!hash) {
-            return NextResponse.json({ success: false, error: "Missing Merkle Leaf Hash" }, { status: 400 });
+            return NextResponse.json({ success: false, error: "Hash required" }, { status: 400 });
         }
+
+        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+        const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+        if (!supabaseUrl || !supabaseAnonKey || supabaseUrl === 'undefined') {
+            return NextResponse.json({ success: false, error: "Database credentials missing" }, { status: 503 });
+        }
+
+        const { createClient } = await import('@supabase/supabase-js');
+        const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
         const { data: identity, error } = await supabase
             .from('identities')

@@ -1,15 +1,19 @@
 import { NextResponse } from 'next/server';
-import { getSupabase } from '@/lib/supabase';
 import { getContractWithSigner } from '@/utils/chain';
 
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: Request) {
     try {
-        const supabase = getSupabase();
-        if (!supabase) {
-            return NextResponse.json({ success: false, error: "Database not initialized" }, { status: 503 });
+        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+        const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+        if (!supabaseUrl || !supabaseAnonKey || supabaseUrl === 'undefined') {
+            return NextResponse.json({ success: false, error: "Database credentials missing" }, { status: 503 });
         }
+
+        const { createClient } = await import('@supabase/supabase-js');
+        const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
         const payload = await req.json();
         const { registryCID, leafHash, publicName, rawData } = payload;
