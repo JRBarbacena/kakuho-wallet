@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Citizen Wallet | Hybrid Transparency",
-  description: "Secure, ZK-powered identity wallet for public accountability.",
+  title: "Kakuho Citizen Wallet - V3",
+  description: "ZK-powered identity wallet",
 };
 
 export default function RootLayout({
