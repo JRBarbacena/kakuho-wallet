@@ -49,7 +49,7 @@ export class MerkleTree {
       // Calculate next level
       const nextNodes: bigint[] = [];
       for (let j = 0; j < currentNodes.length; j += 2) {
-        nextNodes.push(poseidon2([currentNodes[j], currentNodes[j + 1] || 0n]));
+        nextNodes.push(poseidon2([currentNodes[j], currentNodes[j + 1] || BigInt(0)]));
       }
       currentNodes = nextNodes;
       currentIndex = Math.floor(currentIndex / 2);
