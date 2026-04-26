@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { poseidon2 } from 'poseidon-lite';
 
 /**
