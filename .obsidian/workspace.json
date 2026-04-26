@@ -1,0 +1,220 @@
+{
+  "main": {
+    "id": "986d34d74ea08cdc",
+    "type": "split",
+    "children": [
+      {
+        "id": "da4a0cf1e9481270",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e4b91e81f1d2e296",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "Graph view"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "0b96d09096deb3ee",
+    "type": "split",
+    "children": [
+      {
+        "id": "9388185dc4f4c5e5",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "a377ab7bfef429d0",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "a4bccbb6ac17fdb7",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "f799e86194af0394",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "0c928d789b28a783",
+    "type": "split",
+    "children": [
+      {
+        "id": "39fae5fe204f54e1",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "7613df283908c436",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks"
+            }
+          },
+          {
+            "id": "32e841109b9526d0",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links"
+            }
+          },
+          {
+            "id": "900530a1b08dda63",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "41bb46616d77adab",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "df5b236452b43b35",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "graph:Open graph view": false,
+      "switcher:Open quick switcher": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "e4b91e81f1d2e296",
+  "lastOpenFiles": [
+    "web-citizen/src/utils/merkle.ts",
+    "web-admin/node_modules/tailwindcss/dist/flatten-color-palette.d.ts",
+    "web-admin/node_modules/tailwindcss/dist/flatten-color-palette.mjs",
+    "web-admin/node_modules/tailwindcss/dist/types-CJYAW1ql.d.mts",
+    "web-admin/node_modules/tailwindcss/dist/resolve-config-QUZ9b-Gn.d.mts",
+    "web-admin/node_modules/tailwindcss/dist/resolve-config-B4yBzhca.d.ts",
+    "web-admin/node_modules/tailwindcss/dist/plugin.mjs",
+    "web-admin/node_modules/tailwindcss/dist/default-theme.js",
+    "web-admin/node_modules/tailwindcss/dist/plugin.js",
+    "web-admin/node_modules/tailwindcss/dist/plugin.d.ts",
+    "web-admin/node_modules/tailwindcss/dist/plugin.d.mts",
+    "web-admin/node_modules/tailwindcss/README.md",
+    "web-admin/node_modules/jiti/README.md",
+    "web-admin/node_modules/enhanced-resolve/README.md",
+    "web-admin/node_modules/next/dist/compiled/react-refresh/README.md",
+    "web-admin/node_modules/next/node_modules/postcss/README.md",
+    "web-admin/node_modules/@tailwindcss/postcss/README.md",
+    "web-admin/node_modules/@tailwindcss/oxide-win32-x64-msvc/README.md",
+    "web-admin/node_modules/@tailwindcss/node/README.md",
+    "web-admin/node_modules/@jridgewell/trace-mapping/README.md",
+    "web-admin/node_modules/@jridgewell/sourcemap-codec/README.md",
+    "web-admin/node_modules/@jridgewell/resolve-uri/README.md",
+    "web-admin/node_modules/@jridgewell/remapping/README.md",
+    "web-admin/node_modules/@jridgewell/gen-mapping/README.md",
+    "web-admin/node_modules/@emnapi/runtime/README.md",
+    "web-admin/node_modules/@alloc/quick-lru/readme.md",
+    "web-admin/node_modules/next/dist/compiled/react-is/README.md",
+    "web-admin/node_modules/@supabase/phoenix/priv/static/phoenix.png",
+    "web-admin/node_modules/@supabase/phoenix/priv/static/phoenix-orange.png",
+    "web-citizen/node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/headers.md",
+    "web-citizen/node_modules/eslint-plugin-jsx-a11y/README.md",
+    "web-citizen/node_modules/poseidon-lite/README.md",
+    "web-admin/node_modules/poseidon-lite/README.md",
+    "web-citizen/node_modules/next/dist/docs/01-app/03-api-reference/05-config/02-typescript.md",
+    "web-citizen/node_modules/next/dist/docs/01-app/01-getting-started/02-project-structure.md",
+    "Kingdom_4_Authority.md",
+    "Kingdom_3_Citizen.md",
+    "Kingdom_2_Blockchain.md"
+  ]
+}

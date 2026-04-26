@@ -10,13 +10,13 @@ fn main(
     private_license_data: Field,
     merkle_path: [Field; 20],
     leaf_index: u32,
+    private_name: Field,
     // --- PUBLIC INPUTS ---
-    public_name: pub Field,
     scope: pub Field,
     public_merkle_root: pub Field,
 ) -> pub Field {
     // CONSTRAINT 1: Leaf Reconstruction
-    let computed_leaf = bn254::hash_3([secret, private_license_data, public_name]);
+    let computed_leaf = bn254::hash_3([secret, private_license_data, private_name]);
 
     // CONSTRAINT 2: Merkle Inclusion Proof (Manual Loop)
     let mut computed_root = computed_leaf;

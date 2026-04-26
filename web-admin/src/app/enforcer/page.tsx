@@ -1,0 +1,1 @@
+export default function EnforcerPage() { return <div>Enforcer</div>; }

@@ -1,0 +1,1 @@
+export default function IssuerPage() { return <div>Issuer</div>; }

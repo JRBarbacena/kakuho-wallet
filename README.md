@@ -34,7 +34,7 @@ hybrid-transparency/
 │   ├── utils/
 │   │   ├── mock_citizens.json    <-- NEW: Array of 100 dummy drivers for thesis benchmarking
 │   │   ├── zk-prove.ts           <-- WASM ENGINE: Uses @noir-lang/backend_barretenberg
-│   │   ├── flat-hash.ts          <-- HASH ENGINE: Uses @aztec/bb.js (poseidon2Hash)
+│   │   ├── commitment.js         <-- HASH ENGINE: Canonical identity commitment helper
 │   │   └── chain.ts              <-- (Fetches current Merkle Root & Path from LTORegistry)
 │   └── package.json
 │
@@ -47,7 +47,7 @@ hybrid-transparency/
 │   ├── utils/
 │   │   ├── db.json               <-- NEW: Admin's Web2 DB (Stores heavy data: Photos, Names)
 │   │   ├── zk-verify.ts          <-- WASM ENGINE: Uses @noir-lang/backend_barretenberg
-│   │   ├── flat-hash.ts          <-- HASH ENGINE: Uses @aztec/bb.js (poseidon2Hash)
+│   │   ├── commitment.js         <-- HASH ENGINE: Canonical identity commitment helper
 │   │   └── chain.ts              <-- (Connects to LTORegistry to confirm the Root is legit)
 │   └── package.json
 │
