@@ -18,12 +18,12 @@ export class LeanMerkleTree {
   }
 
   private calculateRoot(nodes: bigint[], depth: number): bigint {
-    if (depth === 0) return nodes[0] || BigInt(0);
+    if (depth === 0) return nodes[0] !== undefined ? nodes[0] : BigInt(0);
     
     const nextNodes: bigint[] = [];
     for (let i = 0; i < nodes.length; i += 2) {
       const left = nodes[i];
-      const right = nodes[i + 1] || BigInt(0);
+      const right = nodes[i + 1] !== undefined ? nodes[i + 1] : BigInt(0);
       nextNodes.push(poseidon2([left, right]));
     }
     

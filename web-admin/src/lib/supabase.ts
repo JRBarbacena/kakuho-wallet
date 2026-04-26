@@ -3,17 +3,26 @@ import { createClient } from '@supabase/supabase-js';
 let supabaseInstance: any = null;
 
 export const getSupabase = () => {
-    // If we're in a build environment without env vars, return null instead of crashing
+    // If we're in a build phase, return a mock/null to prevent crashes
+    if (process.env.NEXT_PHASE === 'phase-production-build') {
+        return null;
+    }
+
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-    if (!supabaseUrl || !supabaseAnonKey) {
-        console.warn("Supabase credentials missing. Returning null client for build compatibility.");
+    if (!supabaseUrl || !supabaseAnonKey || supabaseUrl === 'undefined') {
+        console.warn("Supabase credentials missing or invalid. Returning null client.");
         return null;
     }
 
     if (!supabaseInstance) {
-        supabaseInstance = createClient(supabaseUrl, supabaseAnonKey);
+        try {
+            supabaseInstance = createClient(supabaseUrl, supabaseAnonKey);
+        } catch (e) {
+            console.error("Failed to create Supabase client:", e);
+            return null;
+        }
     }
     
     return supabaseInstance;
