@@ -4,7 +4,7 @@ import { poseidon2 } from 'poseidon-lite';
 /**
  * A simple Poseidon-based Merkle Tree implementation compatible with LeanIMT.
  */
-export class MerkleTree {
+export class LeanMerkleTree {
   leaves: bigint[];
   depth: number;
 

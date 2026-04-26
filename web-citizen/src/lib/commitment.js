@@ -1,6 +1,6 @@
 import { poseidon3 } from 'poseidon-lite';
 
-const FIELD_MODULUS = 0x30644e72e131a029b85045b68181585d2833e84879b9709143e1f593f0000001n;
+const FIELD_MODULUS = BigInt("0x30644e72e131a029b85045b68181585d2833e84879b9709143e1f593f0000001");
 const FIELD_BYTES = 32;
 
 function normalizeField(value) {
@@ -26,9 +26,9 @@ export function toFieldBigInt(input) {
   }
 
   const bytes = new TextEncoder().encode(text);
-  let acc = 0n;
+  let acc = BigInt(0);
   for (const byte of bytes) {
-    acc = (acc << 8n) + BigInt(byte);
+    acc = (acc << BigInt(8)) + BigInt(byte);
   }
 
   return normalizeField(acc);
