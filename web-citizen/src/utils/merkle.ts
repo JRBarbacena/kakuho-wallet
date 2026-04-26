@@ -17,18 +17,18 @@ export class MerkleTree {
   }
 
   private calculateRoot(nodes: bigint[], depth: number): bigint {
-    if (depth === 0) return nodes[0] || 0n;
+    if (depth === 0) return nodes[0] || BigInt(0);
     
     const nextNodes: bigint[] = [];
     for (let i = 0; i < nodes.length; i += 2) {
       const left = nodes[i];
-      const right = nodes[i + 1] || 0n;
+      const right = nodes[i + 1] || BigInt(0);
       nextNodes.push(poseidon2([left, right]));
     }
     
     // Fill with zero hashes if empty
     if (nextNodes.length === 0) {
-      return this.calculateRoot([0n], depth - 1);
+      return this.calculateRoot([BigInt(0)], depth - 1);
     }
 
     return this.calculateRoot(nextNodes, depth - 1);
@@ -42,7 +42,7 @@ export class MerkleTree {
     for (let i = 0; i < this.depth; i++) {
       const isRight = currentIndex % 2 === 1;
       const siblingIndex = isRight ? currentIndex - 1 : currentIndex + 1;
-      const sibling = currentNodes[siblingIndex] || 0n;
+      const sibling = currentNodes[siblingIndex] || BigInt(0);
       
       proof.push("0x" + sibling.toString(16).padStart(64, '0'));
 
