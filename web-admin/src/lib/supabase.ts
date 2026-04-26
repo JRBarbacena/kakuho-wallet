@@ -1,8 +1,6 @@
-import { createClient } from '@supabase/supabase-js';
-
 let supabaseInstance: any = null;
 
-export const getSupabase = () => {
+export const getSupabase = async () => {
     // If we're in a build phase, return a mock/null to prevent crashes
     if (process.env.NEXT_PHASE === 'phase-production-build') {
         return null;
@@ -18,6 +16,7 @@ export const getSupabase = () => {
 
     if (!supabaseInstance) {
         try {
+            const { createClient } = await import('@supabase/supabase-js');
             supabaseInstance = createClient(supabaseUrl, supabaseAnonKey);
         } catch (e) {
             console.error("Failed to create Supabase client:", e);
@@ -28,12 +27,47 @@ export const getSupabase = () => {
     return supabaseInstance;
 };
 
-// For backward compatibility
+// For backward compatibility (Lazy Proxy)
 export const supabase = {
-    from: (table: string) => {
-        const client = getSupabase();
-        if (!client) return { select: () => ({ order: () => ({ data: [], error: null }), eq: () => ({ single: () => ({ data: null, error: null }) }) }), insert: () => ({ error: null }), update: () => ({ eq: () => ({ error: null }) }), delete: () => ({ eq: () => ({ error: null }) }) } as any;
-        return client.from(table);
-    },
-    auth: () => getSupabase()?.auth
+    from: (table: string) => ({
+        select: (...args: any[]) => ({
+            order: (...args: any[]) => ({
+                eq: (...args: any[]) => ({
+                    single: async () => {
+                        const client = await getSupabase();
+                        if (!client) return { data: null, error: { message: "Build mode" } };
+                        return client.from(table).select(...args).order(...args).eq(...args).single();
+                    }
+                }),
+                async then(resolve: any) {
+                    const client = await getSupabase();
+                    if (!client) return resolve({ data: [], error: { message: "Build mode" } });
+                    const res = await client.from(table).select(...args).order(...args);
+                    resolve(res);
+                }
+            }),
+            async then(resolve: any) {
+                const client = await getSupabase();
+                if (!client) return resolve({ data: [], error: { message: "Build mode" } });
+                const res = await client.from(table).select(...args);
+                resolve(res);
+            }
+        }),
+        insert: async (...args: any[]) => {
+            const client = await getSupabase();
+            if (!client) return { error: { message: "Build mode" } };
+            return client.from(table).insert(...args);
+        },
+        update: (...args: any[]) => ({
+            eq: async (...args2: any[]) => {
+                const client = await getSupabase();
+                if (!client) return { error: { message: "Build mode" } };
+                return client.from(table).update(...args).eq(...args2);
+            }
+        })
+    }) as any,
+    auth: async () => {
+        const client = await getSupabase();
+        return client?.auth;
+    }
 };
