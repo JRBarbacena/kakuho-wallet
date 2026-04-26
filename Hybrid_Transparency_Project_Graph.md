@@ -25,7 +25,7 @@ graph TD
 
     subgraph "Kingdom 4: The Authority (Issuer/Verifier)"
         ADM[Web Admin App] --> |Issues License| SC
-        ADM --> |Stores Raw Data| DB[(Supabase/MongoDB)]
+        ADM --> |Stores Raw Data| DB[(Supabase/Supabase)]
         ENF[Enforcer App] --> |Scans Proof| EV
         EV --> |Validates Root| SC
     end
@@ -102,7 +102,7 @@ graph TD
 - **Solidity**: Smart contracts on EVM.
 - **LeanIMT**: Efficient Merkle Tree implementation.
 - **Next.js**: Frontend for Citizen and Admin portals.
-- **Supabase/MongoDB**: Off-chain metadata storage.
+- **Supabase/Supabase**: Off-chain metadata storage.
 - **Ethers.js**: Interaction with the blockchain.
 
 ---

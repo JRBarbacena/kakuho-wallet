@@ -9,7 +9,7 @@ Responsible for onboarding new drivers.
 1. **Data Collection**: Admin enters driver details (Name, DOB, License Type).
 2. **Commitment Generation**: The system creates a `leafHash` (Pedersen/Poseidon hash of the secret and data).
 3. **On-Chain Anchor**: Admin sends the `leafHash` to the `LTORegistry` on the [[Kingdom_2_Blockchain|Blockchain]].
-4. **Off-Chain Database**: Full raw data is stored in **Supabase** or **MongoDB** for administrative lookup (this is the "Hybrid" part—ZK for the public, DB for the authority).
+4. **Off-Chain Database**: Full raw data is stored in **Supabase** or **Supabase** for administrative lookup (this is the "Hybrid" part—ZK for the public, DB for the authority).
 
 ## 👮 The Enforcer App (`/enforcer`)
 Used by traffic enforcers to verify drivers.

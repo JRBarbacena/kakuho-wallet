@@ -1,56 +1,42 @@
-# Hybrid-Transparency: V4 Architecture
+# Hybrid-Transparency: V5 Architecture
 
-Diagram of the system: [View on Eraser.io](https://app.eraser.io/workspace/YftjwOIfE3uFNa5aTSfs?origin=share)
-
-Wait for further update on setup instructions, thank you.
+This system implements a Privacy-Preserving Identity Registry using Zero-Knowledge Proofs (Noir), Blockchain Anchoring (Hardhat), and Off-chain Storage (Supabase).
 
 ## Repository Structure
 
 ```text
 hybrid-transparency/
 │
-├── circuits/                     <-- KINGDOM 1: The Cryptography (Noir)
-│   ├── src/
-│   │   └── main.nr               <-- (The Flat Hash Circuit)
-│   ├── Prover.toml               <-- (Local test inputs only)
-│   ├── Nargo.toml                <-- (Noir dependencies, tag = "v0.1.1")
-│   └── target/
-│       └── hybrid_transparency.json <-- THE ARTIFACT (The unbreakable contract)
+├── circuits/                     <-- Noir Cryptography
+│   ├── src/main.nr               <-- The ZK Circuit (Flat Hash)
+│   └── target/                   <-- Compiled Circuit Artifacts
 │
-├── contracts/                    <-- KINGDOM 2: The Anchor (Blockchain)
-│   ├── contracts/
-│   │   └── LTORegistry.sol       <-- The Smart Contract (Stores only the Merkle Tree)
-│   ├── scripts/
-│   │   └── deploy.ts             <-- (Deploys LTORegistry to Localhost)
-│   ├── hardhat.config.ts
-│   └── package.json
+├── contracts/                    <-- Blockchain Anchor
+│   ├── contracts/                <-- Solidity Smart Contracts
+│   ├── scripts/                  <-- Deployment & Test Scripts
+│   └── hardhat.config.ts         <-- Hardhat Configuration
 │
-├── web-citizen/                  <-- KINGDOM 3: The Driver (Prover)
-│   ├── app/
-│   │   ├── wallet/               <-- (UI: Stores Driver's JSON in localStorage)
-│   │   │   └── page.tsx
-│   │   └── prove/                <-- (UI: Generates the WASM Proof to show Enforcer)
-│   │       └── page.tsx
-│   ├── utils/
-│   │   ├── mock_citizens.json    <-- NEW: Array of 100 dummy drivers for thesis benchmarking
-│   │   ├── zk-prove.ts           <-- WASM ENGINE: Uses @noir-lang/backend_barretenberg
-│   │   ├── commitment.js         <-- HASH ENGINE: Canonical identity commitment helper
-│   │   └── chain.ts              <-- (Fetches current Merkle Root & Path from LTORegistry)
-│   └── package.json
+├── web-citizen/                  <-- Citizen Identity Wallet
+│   ├── src/app/                  <-- Next.js Pages (Wallet, Register)
+│   ├── src/lib/                  <-- ZK & Supabase Utilities
+│   └── src/utils/                <-- Merkle & Chain Utilities
 │
-├── web-admin/                    <-- KINGDOM 4: The Authority (Verifier & Issuer)
-│   ├── app/
-│   │   ├── issuer/               <-- (UI: LTO Admin Portal to add new drivers)
-│   │   │   └── page.tsx
-│   │   └── enforcer/             <-- (UI: Traffic Cop App to scan Citizen's Proof)
-│   │       └── page.tsx
-│   ├── utils/
-│   │   ├── db.json               <-- NEW: Admin's Web2 DB (Stores heavy data: Photos, Names)
-│   │   ├── zk-verify.ts          <-- WASM ENGINE: Uses @noir-lang/backend_barretenberg
-│   │   ├── commitment.js         <-- HASH ENGINE: Canonical identity commitment helper
-│   │   └── chain.ts              <-- (Connects to LTORegistry to confirm the Root is legit)
-│   └── package.json
+├── web-admin/                    <-- Authority Management Portal
+│   ├── src/app/                  <-- Next.js Pages (Registry, Management)
+│   ├── src/lib/                  <-- Supabase & Shared Logic
+│   └── src/utils/                <-- Chain Utilities
 │
-├── .gitignore
-└── README.md
+├── Private Keys.md               <-- Local Development Credentials
+└── README.md                     <-- System Overview
 ```
+
+## Key Technologies
+- **Noir**: Zero-knowledge circuit language for privacy-preserving claims.
+- **Hardhat**: Ethereum development environment for the Merkle Root anchor.
+- **Supabase**: Scalable off-chain storage for non-private metadata.
+- **Next.js**: Modern web framework for both Admin and Citizen interfaces.
+
+## Cleanup Notes (V5)
+- Removed MongoDB legacy files and references.
+- Removed 0-byte utility files and redundant JSON mocks.
+- Optimized for clear separation of concerns between ZK proof generation and data persistence.
