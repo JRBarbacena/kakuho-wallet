@@ -2,6 +2,7 @@ import hre from "hardhat";
 const { ethers } = hre as any;
 
 async function main() {
+  const ethers = (hre as any).ethers;
   console.log("1. Deploying Poseidon Hashing Library...");
   // Fetch the exact Poseidon library from the node_modules
   const PoseidonT3 = await ethers.getContractFactory("poseidon-solidity/PoseidonT3.sol:PoseidonT3");

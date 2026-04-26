@@ -1,9 +1,9 @@
-import { HardhatUserConfig, task } from "hardhat/config";
+import { task } from "hardhat/config.js";
 import "@nomicfoundation/hardhat-ethers";
 
 task("deploy-lto", "Deploys the LTO Registry and libraries")
   .setAction(async (taskArgs, hre) => {
-    const ethers = (hre as any).ethers;
+    const ethers = hre.ethers;
     if (!ethers) {
         console.error("❌ Ethers still not found in Task HRE.");
         return;
@@ -37,7 +37,7 @@ task("deploy-lto", "Deploys the LTO Registry and libraries")
     console.log(`✅ SUCCESS! LTORegistry deployed to: ${registry.target}`);
   });
 
-const config: HardhatUserConfig = {
+export default {
   solidity: {
     version: "0.8.28",
     settings: {
@@ -52,15 +52,11 @@ const config: HardhatUserConfig = {
   },
   networks: {
     hardhat: {
-      type: "edr-simulated" as any,
       allowUnlimitedContractSize: true,
     },
     localhost: {
-      type: "http" as any,
       url: "http://127.0.0.1:8545",
       allowUnlimitedContractSize: true,
     },
   },
 };
-
-export default config;

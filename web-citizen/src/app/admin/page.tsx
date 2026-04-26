@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
-import { getSupabase } from '@/lib/supabase';
+import { supabase } from '@/lib/supabase';
 
 
 export default function KakuhoRegistryPortal() {
@@ -26,7 +26,7 @@ export default function KakuhoRegistryPortal() {
     const [validationError, setValidationError] = useState('');
 
     const fetchData = async () => {
-        const { data } = await getSupabase().from('identities').select('*').order('created_at', { ascending: false });
+        const { data } = await supabase.from('identities').select('*').order('created_at', { ascending: false });
         if (data) setRegistrations(data);
     };
 
@@ -86,7 +86,7 @@ export default function KakuhoRegistryPortal() {
         if (!scannedHash) return;
         addLog('Verifier', 'Scanning Registry for ID Hash...');
         // Verify by leaf_hash (since user requested Merkle leaf to be used for everything again)
-        const { data } = await getSupabase().from('identities').select('*').eq('leaf_hash', scannedHash.trim()).single();
+        const { data } = await supabase.from('identities').select('*').eq('leaf_hash', scannedHash.trim()).single();
         if (data) {
             setStatusMessage(`VALID: Identity verified for ${data.public_name}`);
             addLog('Audit', `VERIFICATION PASS: ${data.public_name}`);
@@ -102,7 +102,7 @@ export default function KakuhoRegistryPortal() {
             return;
         }
         addLog('Admin', 'Purging Identity from Registry...');
-        const { error } = await getSupabase().from('identities').delete().eq('leaf_hash', scannedHash.trim());
+        const { error } = await supabase.from('identities').delete().eq('leaf_hash', scannedHash.trim());
 
         if (!error) {
             addLog('Success', 'Credential Revoked Successfully.');

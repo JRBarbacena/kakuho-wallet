@@ -1,9 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  turbopack: {},
+  // turbopack: {},
   serverExternalPackages: ['@aztec/bb.js', 'poseidon-lite'],
-  transpilePackages: ['@aztec/bb.js', 'poseidon-lite'],
+  transpilePackages: [],
   typescript: {
     ignoreBuildErrors: true,
   }
