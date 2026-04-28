@@ -29,7 +29,7 @@ export async function POST(req: Request) {
                 leaf_hash: leafHash,
                 public_name: publicName,
                 raw_data: rawData,
-                status: 'ACTIVE'
+                is_revoked: false
             });
 
         if (error) {

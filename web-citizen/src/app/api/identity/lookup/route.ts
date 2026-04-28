@@ -36,7 +36,7 @@ export async function GET(req: Request) {
             data: identity.raw_data,
             registryCID: identity.registry_cid,
             publicName: identity.public_name,
-            status: identity.status
+            status: identity.is_revoked ? 'REVOKED' : 'ACTIVE'
         });
     } catch (error: unknown) {
         const message = error instanceof Error ? error.message : String(error);

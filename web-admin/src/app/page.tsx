@@ -104,7 +104,7 @@ export default function KakuhoRegistryPortal() {
         addLog('Admin', 'Purging Identity from Registry...');
         const { error } = await supabase
             .from('identities')
-            .update({ status: 'REVOKED' })
+            .update({ is_revoked: true })
             .eq('leaf_hash', scannedHash.trim());
 
             
@@ -183,8 +183,8 @@ export default function KakuhoRegistryPortal() {
                                                 <td>{reg.public_name}</td>
                                                 <td><code>{reg.registry_cid?.slice(0, 24) || 'Pending CID'}...</code></td>
                                                 <td>
-                                                    <span className={`${reg.status === 'REVOKED' ? 'text-red-500' : 'text-emerald-400'} text-[10px] font-bold`}>
-                                                        {reg.status || 'ACTIVE'}
+                                                    <span className={`${reg.is_revoked ? 'text-red-500' : 'text-emerald-400'} text-[10px] font-bold`}>
+                                                        {reg.is_revoked ? 'REVOKED' : 'ACTIVE'}
                                                     </span>
                                                 </td>
                                             </tr>
@@ -215,12 +215,12 @@ export default function KakuhoRegistryPortal() {
                                             <td><code className="text-[10px]">{reg.registry_cid?.slice(0, 15)}...</code></td>
                                             <td><code className="text-[10px]">{reg.leaf_hash?.slice(0, 15)}...</code></td>
                                             <td>
-                                                <span className={`${reg.status === 'REVOKED' ? 'text-red-500' : 'text-emerald-400'} text-[10px] font-bold`}>
-                                                    {reg.status || 'ACTIVE'}
+                                                <span className={`${reg.is_revoked ? 'text-red-500' : 'text-emerald-400'} text-[10px] font-bold`}>
+                                                    {reg.is_revoked ? 'REVOKED' : 'ACTIVE'}
                                                 </span>
                                             </td>
                                             <td>
-                                                {reg.status !== 'REVOKED' && (
+                                                {!reg.is_revoked && (
                                                     <button 
                                                         onClick={() => { setScannedHash(String(reg.leaf_hash || '')); setActiveView('view-management'); }}
                                                         className="text-[10px] font-black text-orange-primary hover:underline"
