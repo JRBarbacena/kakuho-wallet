@@ -9,10 +9,9 @@ import { toFieldHex } from '../lib/commitment';
 export async function generateIdentityProof(
   secret: string, 
   privateLicenseData: string, 
-  privateName: string,
   merklePath: string[], 
   leafIndex: number,
-  scope: string,
+  publicName: string,
   publicMerkleRoot: string
 ) {
   try {
@@ -28,10 +27,9 @@ export async function generateIdentityProof(
     const inputs = {
       secret: toFieldHex(secret),
       private_license_data: toFieldHex(privateLicenseData),
-      private_name: toFieldHex(privateName),
       merkle_path: merklePath.map(p => p.startsWith('0x') ? p : toFieldHex(p)),
       leaf_index: leafIndex,
-      scope: toFieldHex(scope),
+      public_name: toFieldHex(publicName),
       public_merkle_root: toFieldHex(publicMerkleRoot)
     };
 

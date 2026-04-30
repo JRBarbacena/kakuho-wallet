@@ -1,8 +1,4 @@
-use dep::poseidon::poseidon::bn254;
-
-// THE LTO SEMAPHORE V4 CIRCUIT
-// This circuit proves a driver is in the National Chain Merkle Tree
-// and derives a Nullifier for the traffic stop, without revealing their identity.
+use std::hash::poseidon::bn254;
 
 fn main(
     // --- PRIVATE WITNESSES ---
@@ -10,13 +6,12 @@ fn main(
     private_license_data: Field,
     merkle_path: [Field; 20],
     leaf_index: u32,
-    private_name: Field,
     // --- PUBLIC INPUTS ---
-    scope: pub Field,
-    public_merkle_root: pub Field,
-) -> pub Field {
+    public_name: pub Field,
+    public_merkle_root: pub Field
+) {
     // CONSTRAINT 1: Leaf Reconstruction
-    let computed_leaf = bn254::hash_3([secret, private_license_data, private_name]);
+    let computed_leaf = bn254::hash_3([secret, private_license_data, public_name]);
 
     // CONSTRAINT 2: Merkle Inclusion Proof (Manual Loop)
     let mut computed_root = computed_leaf;
@@ -36,10 +31,4 @@ fn main(
 
     // CONSTRAINT 3: State Verification
     assert(computed_root == public_merkle_root);
-
-    // CONSTRAINT 4: Nullifier Derivation
-    let nullifier = bn254::hash_2([secret, scope]);
-
-    // Output the Nullifier
-    nullifier
 }
