@@ -7,9 +7,8 @@ const REGISTRY_ABI = [
   "function admin() public view returns (address)"
 ];
 
-// This address should match the one in LTORegistry_address.txt
-const REGISTRY_ADDRESS = "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"; 
-const RPC_URL = "http://127.0.0.1:8545";
+const REGISTRY_ADDRESS = process.env.NEXT_PUBLIC_REGISTRY_ADDRESS!;
+const RPC_URL = process.env.NEXT_PUBLIC_RPC_URL!;
 
 export async function getContract() {
   const provider = new ethers.JsonRpcProvider(RPC_URL);

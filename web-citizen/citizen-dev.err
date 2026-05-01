@@ -1,1 +1,2 @@
-⚠ Found a change in next.config.ts. Restarting the server to apply the changes...
+⚠ Slow filesystem detected. The benchmark took 302ms. If C:\Users\iggyb\OneDrive\Desktop\Hybrid-Transparency\web-citizen\.next/dev is a network drive, consider moving it to a local folder.
+See more: https://nextjs.org/docs/app/guides/local-development

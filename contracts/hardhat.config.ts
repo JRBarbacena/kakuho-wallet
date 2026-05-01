@@ -1,5 +1,7 @@
 import { HardhatUserConfig, task } from "hardhat/config";
 import "@nomicfoundation/hardhat-ethers";
+import * as dotenv from "dotenv";
+dotenv.config();
 
 task("deploy-lto", "Deploys the LTO Registry and libraries")
   .setAction(async (taskArgs, hre) => {
@@ -59,6 +61,11 @@ const config: HardhatUserConfig = {
       type: "http" as any,
       url: "http://127.0.0.1:8545",
       allowUnlimitedContractSize: true,
+    },
+    sepolia: {
+      type: "http" as any,
+      url: process.env.SEPOLIA_RPC_URL || "",
+      accounts: process.env.DEPLOYER_PRIVATE_KEY ? [process.env.DEPLOYER_PRIVATE_KEY] : [],
     },
   },
 };
